@@ -1,0 +1,11 @@
+{
+	"name": "samcodes-amazonmobileanalytics",
+	"url": "http://samcodes.co.uk/code/",
+	"license": "MIT",
+	"tags": ["analytics","mobile","openfl","android","ios","games"],
+	"description": "Unofficial Amazon Mobile Analytics bindings for iOS and Android OpenFL targets",
+	"version": "1.0.0",
+	"releasenote": "Initial release",
+	"contributors": ["samcodes"],
+	"dependencies": {}
+}

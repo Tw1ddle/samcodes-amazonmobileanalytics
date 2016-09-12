@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<ndll name="samcodesamazonmobileanalytics" if="ios" />
+	
+	<section if="android">
+		<dependency name="samcodes-amazonmobileanalytics" path ="dependencies/samcodes-amazonmobileanalytics" />
+		<android extension="com.samcodes.amazonmobileanalytics.AmazonMobileAnalyticsExtension" />
+	</section>
+</project>
