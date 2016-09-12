@@ -1,5 +1,7 @@
 # Haxe Amazon Mobile Analytics
 
+WORK IN PROGRESS
+
 Unofficial Amazon mobile analytics support for Haxe OpenFL Android and iOS targets.
 
 ## Features
