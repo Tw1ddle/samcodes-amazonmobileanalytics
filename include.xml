@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<ndll name="samcodesamazonmobileanalytics" if="ios" />
+
+	<section if="ios">
+		<dependency name="project/include/AWSMobileAnalytics.a" />
+		<dependency name="SystemConfiguration.framework" />
+		<dependency name="libsqlite3.dylib" />
+		<dependency name="libz.dylib" />
+	</section>
 	
 	<section if="android">
 		<dependency name="samcodes-amazonmobileanalytics" path ="dependencies/samcodes-amazonmobileanalytics" />
 		<android extension="com.samcodes.amazonmobileanalytics.AmazonMobileAnalyticsExtension" />
+		<template path="dependencies/samcodes-amazonmobileanalytics/libs/aws-android-sdk-core-2.3.1.jar" rename="deps/samcodes-amazonmobileanalytics/libs/aws-android-sdk-core-2.3.1.jar" />
+		<template path="dependencies/samcodes-amazonmobileanalytics/libs/aws-android-sdk-mobileanalytics-2.3.1.jar" rename="deps/samcodes-amazonmobileanalytics/libs/aws-android-sdk-mobileanalytics-2.3.1.jar" />
 	</section>
 </project>
