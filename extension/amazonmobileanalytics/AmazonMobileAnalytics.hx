@@ -8,14 +8,13 @@ import openfl.utils.JNI;
 
 #if ios
 import extension.amazonmobileanalytics.PrimeLoader;
+import flash.Lib;
 #end
 
 #if (android || ios)
 class AmazonMobileAnalytics {
-	public static var initialized(default, null):Bool = false;
-	
 	// On Android set the appId and identityPoolId in Project.xml
-	public static function init(appVersionId:String, ?appId:String, ?identityPoolId:String):Void {
+	public static function init(?appId:String, ?identityPoolId:String):Void {
 		#if ios
 		if (appId == null || identityPoolId == null) {
 			throw "appId or identityPoolId not passed. On iOS these must be passed in AmazonMobileAnalytics.init";
@@ -148,8 +147,9 @@ class AmazonMobileAnalytics {
 	private static var add_global_metric_for_event_type = PrimeLoader.load("samcodesamazonmobileanalytics_add_global_metric_for_event_type", "ssfv");
 	private static var remove_global_metric = PrimeLoader.load("samcodesamazonmobileanalytics_remove_global_metric", "sv");
 	private static var remove_global_metric_for_event_type = PrimeLoader.load("samcodesamazonmobileanalytics_remove_global_metric_for_event_type", "ssv");
-	private static var record_event = PrimeLoader.load("samcodesamazonmobileanalytics_record_event", "sv"); // TODO string array signatures?
 	private static var submit_events = PrimeLoader.load("samcodesamazonmobileanalytics_submit_events", "v");
+	
+	private static var record_event = Lib.load("samcodesamazonmobileanalytics", "record_event", 5); // Note using old CFFI since some of the parameters are "complex" types (string arrays)
 	#end
 }
 #end

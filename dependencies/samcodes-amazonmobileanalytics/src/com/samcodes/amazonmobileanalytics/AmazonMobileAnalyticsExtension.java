@@ -123,10 +123,12 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 		
 		AnalyticsEvent event = analytics.getEventClient().createEvent(eventType);
 		for(int i = 0; i < attributeNames.length; i++) {
+			Log.i(TAG, "Adding attribute [" + attributeNames[i] + "=" + attributeValues[i] + " to event " + eventType);
 			event.addAttribute(attributeNames[i], attributeValues[i]);
 		}
 		for(int i = 0; i < metricNames.length; i++) {
 			double value = metricValues[i];
+			Log.i(TAG, "Adding metric [" + metricNames[i] + "=" + metricValues[i] + " to event " + eventType);
 			event.addMetric(metricNames[i], value);
 		}
 		
