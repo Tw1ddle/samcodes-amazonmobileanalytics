@@ -1,5 +1,7 @@
 package extension.amazonmobileanalytics;
 
+import haxe.ds.StringMap;
+
 #if android
 import openfl.utils.JNI;
 #end
@@ -10,65 +12,144 @@ import extension.amazonmobileanalytics.PrimeLoader;
 
 #if (android || ios)
 class AmazonMobileAnalytics {
-	// Note, keeping these separate since the common parameters serve pretty different purposes
+	public static var initialized(default, null):Bool = false;
+	
+	// On Android set the appId and identityPoolId in Project.xml
+	public static function init(appVersionId:String, ?appId:String, ?identityPoolId:String):Void {
+		#if ios
+		if (appId == null || identityPoolId == null) {
+			throw "appId or identityPoolId not passed. On iOS these must be passed in AmazonMobileAnalytics.init";
+		}
+		_init.call(appId, identityPoolId);
+		#end
+	}
+	
+	public static function addGlobalAttribute(attributeName:String, value:String):Void {
+		#if android
+		add_global_attribute(attributeName, value);
+		#elseif ios
+		add_global_attribute.call(attributeName, value);
+		#end
+	}
+	
+	public static function addGlobalAttributeForEventType(eventType:String, attributeName:String, value:String):Void {
+		#if android
+		add_global_attribute_for_event_type(eventType, attributeName, value);
+		#elseif ios
+		add_global_attribute_for_event_type.call(eventType, attributeName, value);
+		#end
+	}
+	
+	public static function removeGlobalAttribute(attributeName:String):Void {
+		#if android
+		remove_global_attribute(attributeName);
+		#elseif ios
+		remove_global_attribute.call(attributeName);
+		#end
+	}
+	
+	public static function removeGlobalAttributeForEventType(eventType:String, attributeName:String):Void {
+		#if android
+		remove_global_attribute_for_event_type(eventType, attributeName);
+		#elseif ios
+		remove_global_attribute_for_event_type.call(eventType, attributeName);
+		#end
+	}
+	
+	public static function addGlobalMetric(metricName:String, value:Float):Void {
+		#if android
+		add_global_metric(metricName, value);
+		#elseif ios
+		add_global_metric.call(metricName, value);
+		#end
+	}
+	
+	public static function addGlobalMetricForEventType(eventType:String, metricName:String, value:Float):Void {
+		#if android
+		add_global_metric_for_event_type(eventType, metricName, value);
+		#elseif ios
+		add_global_metric_for_event_type.call(eventType, metricName, value);
+		#end
+	}
+	
+	public static function removeGlobalMetric(metricName:String):Void {
+		#if android
+		remove_global_metric(metricName);
+		#elseif ios
+		remove_global_metric.call(metricName);
+		#end
+	}
+	
+	public static function removeGlobalMetricForEventType(eventType:String, metricName:String):Void {
+		#if android
+		remove_global_metric_for_event_type(eventType, metricName);
+		#elseif ios
+		remove_global_metric_for_event_type.call(eventType, metricName);
+		#end
+	}
+	
+	public static function recordEvent(eventType:String, ?attributes:StringMap<String>, ?metrics:Map<String, Float>):Void {
+		var attributeNames:Array<String> = [];
+		var attributeValues:Array<String> = [];
+		var metricNames:Array<String> = [];
+		var metricValues:Array<Float> = [];
+		
+		if(attributes != null) {
+			for (key in attributes.keys()) {
+				attributeNames.push(key);
+				attributeNames.push(attributes.get(key));
+			}
+		}
+		
+		if(metrics != null) {
+			for (key in metrics.keys()) {
+				metricNames.push(key);
+				metricValues.push(metrics.get(key));
+			}
+		}
+		
+		#if android
+		record_event(eventType, attributeNames, attributeValues, metricNames, metricValues);
+		#elseif ios
+		record_event.call(eventType, attributeNames, attributeValues, metricNames, metricValues);
+		#end
+	}
+	
+	public static function submitEvents():Void {
+		#if android
+		submit_events();
+		#elseif ios
+		submit_events.call();
+		#end
+	}
+	
 	#if android
-	public static function scheduleLocalNotification(slot:Int, triggerAfterMillis:Int, titleText:String, subtitleText:String, messageBodyText:String, tickerText:String, incrementBadgeCount:Bool):Void {
-		schedule_local_notification(slot, triggerAfterMillis, titleText, subtitleText, messageBodyText, tickerText, incrementBadgeCount);
-	}
-	#elseif ios
-	public static function scheduleLocalNotification(slot:Int, triggerAfterMillis:Int, titleText:String, messageBodyText:String, actionButtonText:String, incrementBadgeCount:Bool):Void {
-		schedule_local_notification.call(slot, triggerAfterMillis, titleText, messageBodyText, actionButtonText, incrementBadgeCount);
-	}
-	#end
-	
-	public static function cancelLocalNotification(slot:Int):Void {
-		#if android
-		cancel_local_notification(slot);
-		#elseif ios
-		cancel_local_notification.call(slot); // Note use of call() seems required with HXCPP functions
-		#end
-	}
-	
-	public static function cancelLocalNotifications():Void {
-		#if android
-		cancel_local_notifications();
-		#elseif ios
-		cancel_local_notifications.call();
-		#end
-	}
-	
-	public static function getApplicationIconBadgeNumber():Int {
-		#if android
-		return get_application_icon_badge_number();
-		#elseif ios
-		return get_application_icon_badge_number.call();
-		#end
-	}
-	
-	public static function setApplicationIconBadgeNumber(number:Int):Bool {
-		#if android
-		return set_application_icon_badge_number(number);
-		#elseif ios
-		return set_application_icon_badge_number.call(number);
-		#end
-	}
-	
-	#if android
-	private static inline var packageName:String = "com/samcodes/notifications/NotificationsExtension";
+	private static inline var packageName:String = "com/samcodes/amazonmobileanalytics/AmazonMobileAnalyticsExtension";
 	private static inline function bindJNI(jniMethod:String, jniSignature:String) {
 		return JNI.createStaticMethod(packageName, jniMethod, jniSignature);
 	}
-	private static var schedule_local_notification = bindJNI("scheduleLocalNotification", "(IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V");
-	private static var cancel_local_notification = bindJNI("cancelLocalNotification", "(I)V");
-	private static var cancel_local_notifications = bindJNI("cancelLocalNotifications", "()V");
-	private static var get_application_icon_badge_number = bindJNI("getApplicationIconBadgeNumber", "()I");
-	private static var set_application_icon_badge_number = bindJNI("setApplicationIconBadgeNumber", "(I)Z");
+	private static var add_global_attribute = bindJNI("addGlobalAttribute", "(Ljava/lang/String;Ljava/lang/String;)V");
+	private static var add_global_attribute_for_event_type = bindJNI("addGlobalAttributeForEventType", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+	private static var remove_global_attribute = bindJNI("removeGlobalAttribute", "(Ljava/lang/String;)V");
+	private static var remove_global_attribute_for_event_type = bindJNI("removeGlobalAttributeForEventType", "(Ljava/lang/String;Ljava/lang/String;)V");
+	private static var add_global_metric = bindJNI("addGlobalMetric", "(Ljava/lang/String;F)V");
+	private static var add_global_metric_for_event_type = bindJNI("addGlobalMetricForEventType", "(Ljava/lang/String;Ljava/lang/String;F)V");
+	private static var remove_global_metric = bindJNI("removeGlobalMetric", "(Ljava/lang/String;)V");
+	private static var remove_global_metric_for_event_type = bindJNI("removeGlobalMetricForEventType", "(Ljava/lang/String;Ljava/lang/String;)V");
+	private static var record_event = bindJNI("recordEvent", "(Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;[F)V");
+	private static var submit_events = bindJNI("submitEvents", "()V");
 	#elseif ios
-	private static var schedule_local_notification = PrimeLoader.load("samcodesnotifications_schedule_local_notification", "iisssbv");
-	private static var cancel_local_notification = PrimeLoader.load("samcodesnotifications_cancel_local_notification", "iv");
-	private static var cancel_local_notifications = PrimeLoader.load("samcodesnotifications_cancel_local_notifications", "v");
-	private static var get_application_icon_badge_number = PrimeLoader.load("samcodesnotifications_get_application_icon_badge_number", "i");
-	private static var set_application_icon_badge_number = PrimeLoader.load("samcodesnotifications_set_application_icon_badge_number", "ib");
+	private static var _init = PrimeLoader.load("samcodesamazonmobileanalytics_init", "ssv");
+	private static var add_global_attribute = PrimeLoader.load("samcodesamazonmobileanalytics_add_global_attribute", "ssv");
+	private static var add_global_attribute_for_event_type = PrimeLoader.load("samcodesamazonmobileanalytics_add_global_attribute_for_event_type", "sssv");
+	private static var remove_global_attribute = PrimeLoader.load("samcodesamazonmobileanalytics_remove_global_attribute", "sv");
+	private static var remove_global_attribute_for_event_type = PrimeLoader.load("samcodesamazonmobileanalytics_remove_global_attribute_for_event_type", "ssv");
+	private static var add_global_metric = PrimeLoader.load("samcodesamazonmobileanalytics_add_global_metric", "sfv");
+	private static var add_global_metric_for_event_type = PrimeLoader.load("samcodesamazonmobileanalytics_add_global_metric_for_event_type", "ssfv");
+	private static var remove_global_metric = PrimeLoader.load("samcodesamazonmobileanalytics_remove_global_metric", "sv");
+	private static var remove_global_metric_for_event_type = PrimeLoader.load("samcodesamazonmobileanalytics_remove_global_metric_for_event_type", "ssv");
+	private static var record_event = PrimeLoader.load("samcodesamazonmobileanalytics_record_event", "sv"); // TODO string array signatures?
+	private static var submit_events = PrimeLoader.load("samcodesamazonmobileanalytics_submit_events", "v");
 	#end
 }
 #end

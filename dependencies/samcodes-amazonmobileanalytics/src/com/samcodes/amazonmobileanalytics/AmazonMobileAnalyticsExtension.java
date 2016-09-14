@@ -9,56 +9,135 @@ import com.amazonaws.services.mobileanalytics.*;
 import org.haxe.extension.Extension;
 
 public class AmazonMobileAnalyticsExtension extends Extension {
-	private static MobileAnalyticsManager analytics;
+	private static final String TAG = "AmazonMobileAnalyticsExtension";
+	private static MobileAnalyticsManager analytics = null;
+	
+	private static String appId = "::ENV_AmazonMobileAnalyticsAppId::";
+	private static String identityPoolId = "::ENV_AmazonMobileAnalyticsIdentityPoolId::";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		try {
-			analytics = MobileAnalyticsManager.getOrCreateInstance(mainActivity.getApplicationContext(), "appId", "identityPoolId"); // TODO
+			Log.i(TAG, "Will get or create analytics manager");
+			analytics = MobileAnalyticsManager.getOrCreateInstance(mainActivity.getApplicationContext(), appId, identityPoolId);
 		} catch(InitializationException ex) {
+			Log.e(TAG, "Failed to create AmazonMobileAnalytics manager");
+			return;
 		}
+		Log.i(TAG, "Did retrieve or create analytics manager");
 	}
 	
 	@Override
 	public void onPause() {
 		super.onPause();
-		if(analytics != null) {
-			analytics.getSessionClient().pauseSession();
-			// Attempt to send any events that have been recorded to the Mobile Analytics service.
-			analytics.getEventClient().submitEvents();
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
 		}
+		
+		analytics.getSessionClient().pauseSession();
+		// Attempt to send any events that have been recorded to the Mobile Analytics service.
+		analytics.getEventClient().submitEvents();
 	}
-
+	
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(analytics != null)  {
-			analytics.getSessionClient().resumeSession();
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
 		}
+		analytics.getSessionClient().resumeSession();
 	}
 	
-	private static final int STATE_LOSE = 0;
-	private static final int STATE_WIN = 1;
-	public static void onCustomEvent(String levelName, String difficulty, double timeToComplete, int playerState) {
-		// TODO
-		
-		//Create a Level Complete event with some attributes and metrics(measurements)
-		//Attributes and metrics can be added using with statements
-		AnalyticsEvent levelCompleteEvent = analytics.getEventClient().createEvent("LevelComplete")
-				.withAttribute("LevelName", levelName)
-				.withAttribute("Difficulty", difficulty)
-				.withMetric("TimeToComplete", timeToComplete);
-
-		//attributes and metrics can also be added using add statements
-		if (playerState == STATE_LOSE)
-			levelCompleteEvent.addAttribute("EndState", "Lose");
-		else if (playerState == STATE_WIN)
-			levelCompleteEvent.addAttribute("EndState", "Win");
-
-		//Record the Level Complete event
-		if(analytics != null) {
-			analytics.getEventClient().recordEvent(levelCompleteEvent);
+	public static void addGlobalAttribute(String attributeName, String value) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
 		}
+		analytics.getEventClient().addGlobalAttribute(attributeName, value);
+	}
+	
+	public static void addGlobalAttributeForEventType(String eventType, String attributeName, String value) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().addGlobalAttribute(eventType, attributeName, value);
+	}
+	
+	public static void removeGlobalAttribute(String attributeName) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().removeGlobalAttribute(attributeName);
+	}
+	
+	public static void removeGlobalAttributeForEventType(String eventType, String attributeName) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().removeGlobalAttribute(eventType, attributeName);
+	}
+	
+	public static void addGlobalMetric(String metricName, float value) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().addGlobalMetric(metricName, (double)value);
+	}
+	
+	public static void addGlobalMetricForEventType(String eventType, String metricName, float value) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().addGlobalMetric(eventType, metricName, (double)value);
+	}
+	
+	public static void removeGlobalMetric(String metricName) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().removeGlobalMetric(metricName);
+	}
+	
+	public static void removeGlobalMetricForEventType(String eventType, String metricName) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().removeGlobalMetric(eventType, metricName);
+	}
+	
+	public static void recordEvent(String eventType, String[] attributeNames, String[] attributeValues, String[] metricNames, float[] metricValues) {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		
+		AnalyticsEvent event = analytics.getEventClient().createEvent(eventType);
+		for(int i = 0; i < attributeNames.length; i++) {
+			event.addAttribute(attributeNames[i], attributeValues[i]);
+		}
+		for(int i = 0; i < metricNames.length; i++) {
+			double value = metricValues[i];
+			event.addMetric(metricNames[i], value);
+		}
+		
+		analytics.getEventClient().recordEvent(event);
+	}
+	
+	public static void submitEvents() {
+		if(analytics == null || analytics.getEventClient() == null) {
+			Log.e(TAG, "Analytics manager is null");
+			return;
+		}
+		analytics.getEventClient().submitEvents();
 	}
 }
