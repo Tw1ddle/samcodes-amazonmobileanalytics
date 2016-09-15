@@ -37,7 +37,7 @@ namespace samcodesamazonmobileanalytics
 		{
 			return;
 		}
-		[analytics.eventClient removeGlobalAttribute:[NSString stringWithUTF8String:attributeName]];
+		[analytics.eventClient removeGlobalAttributeForKey:[NSString stringWithUTF8String:attributeName]];
 	}
 	
 	void removeGlobalAttributeForEventType(const char* eventType, const char* attributeName)
@@ -46,7 +46,7 @@ namespace samcodesamazonmobileanalytics
 		{
 			return;
 		}
-		[analytics.eventClient removeGlobalAttribute:[NSString stringWithUTF8String:attributeName] forEventType:[NSString stringWithUTF8String:eventType]];
+		[analytics.eventClient removeGlobalAttributeForKey:[NSString stringWithUTF8String:attributeName] forEventType:[NSString stringWithUTF8String:eventType]];
 	}
 	
 	void addGlobalMetric(const char* metricName, float metricValue)
@@ -73,7 +73,7 @@ namespace samcodesamazonmobileanalytics
 		{
 			return;
 		}
-		[analytics.eventClient removeGlobalMetric:[NSString stringWithUTF8String:metricName]];
+		[analytics.eventClient removeGlobalMetricForKey:[NSString stringWithUTF8String:metricName]];
 	}
 	
 	void removeGlobalMetricForEventType(const char* eventType, const char* metricName)
