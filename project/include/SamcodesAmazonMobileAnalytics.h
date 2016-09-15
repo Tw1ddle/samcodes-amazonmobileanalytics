@@ -13,7 +13,7 @@ namespace samcodesamazonmobileanalytics
 	void removeGlobalMetric(const char* metricName);
 	void removeGlobalMetricForEventType(const char* eventType, const char* metricName);
 	void submitEvents();
-	void recordEvent(const char* eventType, const char** attributeKeys, const char** attributeValues, const char** metricKeys, float** metricValues, int attributeCount, int metricCount);
+	void recordEvent(const char* eventType, const char** attributeKeys, const char** attributeValues, const char** metricKeys, float* metricValues, int attributeCount, int metricCount);
 }
 
 #endif

@@ -2,7 +2,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <AWSMobileAnalytics/AWSMobileAnalytics.h>
+#import "AWSMobileAnalytics.h"
 
 namespace samcodesamazonmobileanalytics
 {
@@ -93,7 +93,7 @@ namespace samcodesamazonmobileanalytics
 		[analytics.eventClient submitEvents];
 	}
 	
-	void recordEvent(const char* eventType, const char** attributeKeys, const char** attributeValues, const char** metricKeys, const float** metricValues, int attributeCount, int metricCount)
+	void recordEvent(const char* eventType, const char** attributeKeys, const char** attributeValues, const char** metricKeys, float* metricValues, int attributeCount, int metricCount)
 	{
 		if(!analytics || !analytics.eventClient)
 		{
@@ -107,7 +107,7 @@ namespace samcodesamazonmobileanalytics
 		}
 		for(int i = 0; i < metricCount; i++)
 		{
-			[event addMetric:[NSString stringWithUTF8String:metricValues[i]] forKey:[NSString stringWithUTF8String:metricKeys[i]]];
+			[event addMetric:[NSNumber numberWithFloat:metricValues[i]] forKey:[NSString stringWithUTF8String:metricKeys[i]]];
 		}
 		
 		[analytics.eventClient recordEvent:event];

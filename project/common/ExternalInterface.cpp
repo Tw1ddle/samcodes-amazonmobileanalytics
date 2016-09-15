@@ -87,7 +87,7 @@ static value samcodesamazonmobileanalytics_record_event(value eventType, value a
 	const char** arrAttributeKeys = new const char*[attributeNamesSize];
 	const char** arrAttributeValues = new const char*[attributeNamesSize];
 	const char** arrMetricKeys = new const char*[metricNamesSize];
-	const float** arrMetricValues = new float*[metricNamesSize];
+	float* arrMetricValues = new float[metricNamesSize];
 	
 	for(int i = 0; i < attributeNamesSize; i++)
 	{
