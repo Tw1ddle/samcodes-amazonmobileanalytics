@@ -36,8 +36,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			return;
 		}
 		analytics.getSessionClient().pauseSession();
-		// Attempt to send any events that have been recorded to the Mobile Analytics service.
-		analytics.getEventClient().submitEvents();
+		submitEvents(); // Attempt to send any events that have been recorded to the Mobile Analytics service.
 	}
 	
 	@Override

@@ -14,5 +14,6 @@
 		<android extension="com.samcodes.amazonmobileanalytics.AmazonMobileAnalyticsExtension" />
 		<template path="dependencies/samcodes-amazonmobileanalytics/libs/aws-android-sdk-core-2.3.1.jar" rename="deps/samcodes-amazonmobileanalytics/libs/aws-android-sdk-core-2.3.1.jar" />
 		<template path="dependencies/samcodes-amazonmobileanalytics/libs/aws-android-sdk-mobileanalytics-2.3.1.jar" rename="deps/samcodes-amazonmobileanalytics/libs/aws-android-sdk-mobileanalytics-2.3.1.jar" />
+		<template path="dependencies/samcodes-amazonmobileanalytics/libs/gson-2.7.jar" rename="deps/samcodes-amazonmobileanalytics/libs/gson-2.7.jar" />
 	</section>
 </project>
