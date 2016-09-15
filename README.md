@@ -1,13 +1,11 @@
 # Haxe Amazon Mobile Analytics
 
-WORK IN PROGRESS
-
 Unofficial [Amazon Mobile Analytics](https://aws.amazon.com/mobileanalytics/) support for Haxe OpenFL Android and iOS targets.
 
 ## Features
 ### Supports
-* Use the Amazon mobile analytics SDK from Haxe code.
-* Record custom app events with attributes and metrics.
+* Automatically record key app usage stats.
+* Record custom events with attributes and metrics.
 * Global attributes and metrics.
 
 ### Doesn't Support
