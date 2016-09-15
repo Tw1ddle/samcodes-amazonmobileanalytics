@@ -93,7 +93,7 @@ namespace samcodesamazonmobileanalytics
 		[analytics.eventClient submitEvents];
 	}
 	
-	void recordEvent(const char* eventType, const char** attributeKeys, const char** attributeValues, const char** metricKeys, const char** metricValues, int attributeCount, int metricCount)
+	void recordEvent(const char* eventType, const char** attributeKeys, const char** attributeValues, const char** metricKeys, const float** metricValues, int attributeCount, int metricCount)
 	{
 		if(!analytics || !analytics.eventClient)
 		{
