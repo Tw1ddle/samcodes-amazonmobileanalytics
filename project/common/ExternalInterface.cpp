@@ -44,7 +44,7 @@ DEFINE_PRIME2v(samcodesamazonmobileanalytics_remove_global_attribute_for_event_t
 
 void samcodesamazonmobileanalytics_add_global_metric(HxString metricName, float metricValue)
 {
-	addGlobalMetric(metricName, metricValue);
+	addGlobalMetric(metricName.c_str(), metricValue);
 }
 DEFINE_PRIME2v(samcodesamazonmobileanalytics_add_global_metric)
 
@@ -52,17 +52,17 @@ void samcodesamazonmobileanalytics_add_global_metric_for_event_type(HxString eve
 {
 	addGlobalMetricForEventType(eventType.c_str(), metricName.c_str(), metricValue);
 }
-DEFINE_PRIME3v(samcodesamazonmobileanalytics_add_global_metric)
+DEFINE_PRIME3v(samcodesamazonmobileanalytics_add_global_metric_for_event_type)
 
 void samcodesamazonmobileanalytics_remove_global_metric(HxString metricName)
 {
-	removeGlobalMetric(metricName);
+	removeGlobalMetric(metricName.c_str());
 }
 DEFINE_PRIME1v(samcodesamazonmobileanalytics_remove_global_metric)
 
 void samcodesamazonmobileanalytics_remove_global_metric_for_event_type(HxString eventType, HxString metricName)
 {
-	removeGlobalMetricForEventType(eventType, metricName);
+	removeGlobalMetricForEventType(eventType.c_str(), metricName.c_str());
 }
 DEFINE_PRIME2v(samcodesamazonmobileanalytics_remove_global_metric_for_event_type)
 
@@ -79,9 +79,9 @@ static value samcodesamazonmobileanalytics_record_event(value eventType, value a
 	int metricNamesSize = val_array_size(metricNames);
 	int metricValuesSize = val_array_size(metricValues);
 	
-	if(attributeNamesSize != attributeValuesSize || metricNames != metricValuesSize)
+	if(attributeNamesSize != attributeValuesSize || metricNamesSize != metricValuesSize)
 	{
-		return; // These should always be the same length (since they map as key => value pairs)
+		return alloc_null(); // These should always be the same length (since they map as key => value pairs)
 	}
 	
 	const char** arrAttributeKeys = new const char*[attributeNamesSize];
@@ -93,15 +93,15 @@ static value samcodesamazonmobileanalytics_record_event(value eventType, value a
 	{
 		value key = val_array_i(attributeNames, i);
 		value v = val_array_i(attributeValues, i);
-		arrAttributeKeys[i] = key;
-		arrAttributeValues[i] = v;
+		arrAttributeKeys[i] = val_string(key);
+		arrAttributeValues[i] = val_string(v);
 	}
 	for(int i = 0; i < metricNamesSize; i++)
 	{
 		value key = val_array_i(metricNames, i);
 		value v = val_array_i(metricValues, i);
-		arrMetricKeys[i] = key;
-		arrMetricValues[i] = v;
+		arrMetricKeys[i] = val_string(key);
+		arrMetricValues[i] = val_float(v);
 	}
 	
 	recordEvent(val_get_string(eventType), arrAttributeKeys, arrAttributeValues, arrMetricKeys, arrMetricValues, attributeNamesSize, metricNamesSize);
