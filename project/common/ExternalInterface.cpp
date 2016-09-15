@@ -72,7 +72,7 @@ void samcodesamazonmobileanalytics_submit_events()
 }
 DEFINE_PRIME0v(samcodesamazonmobileanalytics_submit_events)
 
-void samcodesamazonmobileanalytics_record_event(value eventType, value attributeNames, value attributeValues, value metricNames, value metricValues)
+static value samcodesamazonmobileanalytics_record_event(value eventType, value attributeNames, value attributeValues, value metricNames, value metricValues)
 {
 	int attributeNamesSize = val_array_size(attributeNames);
 	int attributeValuesSize = val_array_size(attributeValues);
