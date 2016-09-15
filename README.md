@@ -44,4 +44,6 @@ If you need to rebuild the iOS or simulator ndlls navigate to ```/project``` and
 ## License
 The [Amazon Mobile Analytics SDK](https://aws.amazon.com/mobileanalytics/) included in this repository is copyright 2010-2016 Amazon.com, Inc. or its affiliates, and is licensed under the Apache License, Version 2.0.
 
+Google [Gson](https://github.com/google/gson) is Copyright 2008 Google Inc, and is released under the Apache License, Version 2.0.
+
 The rest of this haxelib is provided under the MIT license and is copyright 2016 Sam Twidale.
