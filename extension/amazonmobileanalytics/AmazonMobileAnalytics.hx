@@ -96,7 +96,7 @@ class AmazonMobileAnalytics {
 		if(attributes != null) {
 			for (key in attributes.keys()) {
 				attributeNames.push(key);
-				attributeNames.push(attributes.get(key));
+				attributeValues.push(attributes.get(key));
 			}
 		}
 		
