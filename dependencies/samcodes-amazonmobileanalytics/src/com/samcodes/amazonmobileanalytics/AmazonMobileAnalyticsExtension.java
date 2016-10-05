@@ -134,7 +134,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 		}
 		for(int i = 0; i < metricNames.length; i++) {
 			double value = metricValues[i];
-			Log.i(TAG, "Adding metric [" + metricNames[i] + "=" + metricValues[i] + " to event " + eventType);
+			Log.i(TAG, "Adding metric [" + metricNames[i] + "=" + metricValues[i] + "] to event " + eventType);
 			event.addMetric(metricNames[i], value);
 		}
 		
