@@ -83,6 +83,7 @@ namespace samcodesamazonmobileanalytics
 		{
 			return;
 		}
+		[analytics.eventClient removeGlobalMetricForKey:[NSString stringWithUTF8String:metricName] forEventType:[NSString stringWithUTF8String:eventType]];
 	}
 	
 	void submitEvents()
