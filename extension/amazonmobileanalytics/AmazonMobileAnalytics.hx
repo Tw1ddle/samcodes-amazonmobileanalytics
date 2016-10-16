@@ -110,7 +110,7 @@ class AmazonMobileAnalytics {
 		#if android
 		record_event(eventType, attributeNames, attributeValues, metricNames, metricValues);
 		#elseif ios
-		record_event.call(eventType, attributeNames, attributeValues, metricNames, metricValues);
+		record_event(eventType, attributeNames, attributeValues, metricNames, metricValues); // NOTE using CFFI so no need to use .call() syntax
 		#end
 	}
 	
