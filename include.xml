@@ -3,11 +3,6 @@
 	<ndll name="samcodesamazonmobileanalytics" if="ios" />
 
 	<section if="ios">
-		<dependency name="project/include/AWSCore/libAWSCore.a" />
-		<dependency name="project/include/libAWSMobileAnalytics.a" />
-		<dependency name="SystemConfiguration.framework" />
-		<dependency name="libsqlite3.dylib" />
-		<dependency name="libz.dylib" />
 	</section>
 	
 	<section if="android">

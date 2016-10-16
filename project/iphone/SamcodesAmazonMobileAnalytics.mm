@@ -2,7 +2,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AWSMobileAnalytics.h"
+#import "AWSMobileAnalytics/AWSMobileAnalytics.h"
 #import "AWSCore/AWSCore.h"
 
 namespace samcodesamazonmobileanalytics
