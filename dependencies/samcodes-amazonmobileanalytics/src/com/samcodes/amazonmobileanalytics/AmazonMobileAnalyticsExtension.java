@@ -54,7 +54,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Adding global attribute with name " + attributeName + " and value " + value);
+		//Log.i(TAG, "Adding global attribute with name " + attributeName + " and value " + value);
 		analytics.getEventClient().addGlobalAttribute(attributeName, value);
 	}
 	
@@ -63,7 +63,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Adding global attribute for event type " + eventType + " with name " + attributeName + " and value " + value);
+		//Log.i(TAG, "Adding global attribute for event type " + eventType + " with name " + attributeName + " and value " + value);
 		analytics.getEventClient().addGlobalAttribute(eventType, attributeName, value);
 	}
 	
@@ -72,7 +72,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Removing global attribute with name " + attributeName);
+		//Log.i(TAG, "Removing global attribute with name " + attributeName);
 		analytics.getEventClient().removeGlobalAttribute(attributeName);
 	}
 	
@@ -81,7 +81,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Removing global attribute for event type " + eventType + " with name " + attributeName);
+		//Log.i(TAG, "Removing global attribute for event type " + eventType + " with name " + attributeName);
 		analytics.getEventClient().removeGlobalAttribute(eventType, attributeName);
 	}
 	
@@ -90,7 +90,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Adding global metric " + metricName + " with value " + value);
+		//Log.i(TAG, "Adding global metric " + metricName + " with value " + value);
 		analytics.getEventClient().addGlobalMetric(metricName, (double)value);
 	}
 	
@@ -99,7 +99,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Adding global metric " + metricName + " with value " + value + " for event type " + eventType);
+		//Log.i(TAG, "Adding global metric " + metricName + " with value " + value + " for event type " + eventType);
 		analytics.getEventClient().addGlobalMetric(eventType, metricName, (double)value);
 	}
 	
@@ -108,7 +108,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Removing global metric " + metricName);
+		//Log.i(TAG, "Removing global metric " + metricName);
 		analytics.getEventClient().removeGlobalMetric(metricName);
 	}
 	
@@ -117,7 +117,7 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.e(TAG, "Analytics manager is null");
 			return;
 		}
-		Log.i(TAG, "Removing global metric " + metricName + " for event type " + eventType);
+		//Log.i(TAG, "Removing global metric " + metricName + " for event type " + eventType);
 		analytics.getEventClient().removeGlobalMetric(eventType, metricName);
 	}
 	
@@ -129,16 +129,16 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 		
 		AnalyticsEvent event = analytics.getEventClient().createEvent(eventType);
 		for(int i = 0; i < attributeNames.length; i++) {
-			Log.i(TAG, "Adding attribute [" + attributeNames[i] + "=" + attributeValues[i] + "] to event " + eventType);
+			//Log.i(TAG, "Adding attribute [" + attributeNames[i] + "=" + attributeValues[i] + "] to event " + eventType);
 			event.addAttribute(attributeNames[i], attributeValues[i]);
 		}
 		for(int i = 0; i < metricNames.length; i++) {
 			double value = metricValues[i];
-			Log.i(TAG, "Adding metric [" + metricNames[i] + "=" + metricValues[i] + "] to event " + eventType);
+			//Log.i(TAG, "Adding metric [" + metricNames[i] + "=" + metricValues[i] + "] to event " + eventType);
 			event.addMetric(metricNames[i], value);
 		}
 		
-		Log.i(TAG, "Recording event " + eventType);
+		//Log.i(TAG, "Recording event " + eventType);
 		analytics.getEventClient().recordEvent(event);
 	}
 	
