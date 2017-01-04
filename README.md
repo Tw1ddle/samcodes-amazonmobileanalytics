@@ -1,6 +1,6 @@
 # Haxe Amazon Mobile Analytics
 
-Unofficial [Amazon Mobile Analytics](https://aws.amazon.com/mobileanalytics/) support for Haxe OpenFL Android and iOS targets.
+Unofficial [Amazon Mobile Analytics](https://aws.amazon.com/mobileanalytics/) bindings for Haxe OpenFL Android and iOS targets.
 
 ## Features
 ### Supports
@@ -33,6 +33,12 @@ On Android, define your app identifier and identity pool identifier in Project.x
 <setenv name="AmazonMobileAnalyticsAppId" value="long_hex_string_from_my_aws_console" />
 <setenv name="AmazonMobileAnalyticsIdentityPoolId" value="long_hex_string_from_my_aws_console" />
 ```
+
+After integrating and booting the app, you should see data appearing on the Amazon Mobile Analytics dashboards. From here you can create custom dashboards, or export the data and query it. Here it is in action:
+
+![Screenshot](https://github.com/Tw1ddle/samcodes-amazonmobileanalytics/blob/master/screenshots/items.png?raw=true "Example app item uses")
+
+![Screenshot of demo app](https://github.com/Tw1ddle/samcodes-amazonmobileanalytics/blob/master/screenshots/ratings.png?raw=true "Example app rating stats")
 
 ## Notes
 Use ```#if (android || ios)``` conditionals around your imports and calls to this library for cross platform projects, as there is no stub/fallback implementation included in the haxelib.
