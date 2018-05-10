@@ -3,7 +3,7 @@ package extension.amazonmobileanalytics;
 import haxe.ds.StringMap;
 
 #if android
-import openfl.utils.JNI;
+import lime.system.JNI;
 #end
 
 #if ios
