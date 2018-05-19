@@ -1,6 +1,10 @@
 # Haxe Amazon Mobile Analytics
 
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/Tw1ddle/samcodes-amazonmobileanalytics/blob/master/LICENSE)
+
 Unofficial [Amazon Mobile Analytics](https://aws.amazon.com/mobileanalytics/) bindings for Haxe OpenFL Android and iOS targets.
+
+*Deprecation note - Amazon Mobile Analytics was superseded by [Amazon Pinpoint](https://aws.amazon.com/pinpoint/).*
 
 ## Features
 ### Supports
@@ -20,11 +24,6 @@ haxelib install samcodes-amazonmobileanalytics
 ```
 
 ## Usage
-
-Include the haxelib through Project.xml:
-```xml
-<haxelib name="samcodes-amazonmobileanalytics" />
-```
 
 On Android, define your app identifier and identity pool identifier in Project.xml:
 
