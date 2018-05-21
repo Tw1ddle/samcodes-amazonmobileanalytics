@@ -1,5 +1,6 @@
 # Haxe Amazon Mobile Analytics
 
+[![Travis Build Status](https://img.shields.io/travis/Tw1ddle/samcodes-amazonmobileanalytics.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/samcodes-amazonmobilyanalytics)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/Tw1ddle/samcodes-amazonmobileanalytics/blob/master/LICENSE)
 
 Unofficial [Amazon Mobile Analytics](https://aws.amazon.com/mobileanalytics/) bindings for Haxe OpenFL Android and iOS targets.
