@@ -8,7 +8,7 @@ import lime.system.JNI;
 
 #if ios
 import extension.amazonmobileanalytics.PrimeLoader;
-import flash.Lib;
+import lime.system.CFFI;
 #end
 
 #if (android || ios)
@@ -149,7 +149,7 @@ class AmazonMobileAnalytics {
 	private static var remove_global_metric_for_event_type = PrimeLoader.load("samcodesamazonmobileanalytics_remove_global_metric_for_event_type", "ssv");
 	private static var submit_events = PrimeLoader.load("samcodesamazonmobileanalytics_submit_events", "v");
 	
-	private static var record_event = Lib.load("samcodesamazonmobileanalytics", "samcodesamazonmobileanalytics_record_event", 5); // Note using old CFFI since some of the parameters are "complex" types (string arrays)
+	private static var record_event = CFFI.load("samcodesamazonmobileanalytics", "samcodesamazonmobileanalytics_record_event", 5); // Note using old CFFI since some of the parameters are "complex" types (string arrays)
 	#end
 }
 #end
