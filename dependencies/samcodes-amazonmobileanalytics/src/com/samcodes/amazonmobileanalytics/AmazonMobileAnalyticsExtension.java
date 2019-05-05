@@ -22,8 +22,11 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 			Log.i(TAG, "Will get or create analytics manager");
 			analytics = MobileAnalyticsManager.getOrCreateInstance(mainActivity.getApplicationContext(), appId, identityPoolId);
 		} catch(InitializationException ex) {
-			Log.e(TAG, "Failed to create AmazonMobileAnalytics manager");
+			Log.e(TAG, "Failed to create AmazonMobileAnalytics manager, initialization exception");
 			return;
+		} catch(Exception e) {
+			// Catchall for NoSuchMethodErrors and other exceptions from outdated mobile analytics SDK
+			Log.e(TAG, "Failed to create AmazonMobileAnalytics manager, other exception");
 		}
 		Log.i(TAG, "Did retrieve or create analytics manager");
 	}
