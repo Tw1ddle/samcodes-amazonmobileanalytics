@@ -6,6 +6,7 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.mobileconnectors.amazonmobileanalytics.*;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.mobileanalytics.*;
+import java.lang.Throwable;
 import org.haxe.extension.Extension;
 
 public class AmazonMobileAnalyticsExtension extends Extension {
@@ -24,9 +25,9 @@ public class AmazonMobileAnalyticsExtension extends Extension {
 		} catch(InitializationException ex) {
 			Log.e(TAG, "Failed to create AmazonMobileAnalytics manager, initialization exception");
 			return;
-		} catch(Exception e) {
+		} catch(Throwable e) {
 			// Catchall for NoSuchMethodErrors and other exceptions from outdated mobile analytics SDK
-			Log.e(TAG, "Failed to create AmazonMobileAnalytics manager, other exception");
+			Log.e(TAG, "Failed to create AmazonMobileAnalytics manager, other error/exception");
 		}
 		Log.i(TAG, "Did retrieve or create analytics manager");
 	}
